@@ -31,7 +31,9 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 
 # Application definition
-
+THIRD_PARTY_APPS_BEFORE_DEFAULT_APPS = [
+    "daphne",
+]
 DEFAULT_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,9 +48,12 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "core",
     "core.auths",
+    "core.notifications",
 ]
 
-INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = (
+    THIRD_PARTY_APPS_BEFORE_DEFAULT_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -78,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
+# WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
 
