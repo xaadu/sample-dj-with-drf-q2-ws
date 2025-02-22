@@ -2,8 +2,8 @@ from pathlib import Path
 
 import environ
 
-environ.Env.read_env()
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR / ".env")
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -17,10 +17,7 @@ env = environ.Env(
     POSTGRES_PASSWORD=str,
     POSTGRES_HOST=str,
     POSTGRES_PORT=int,
-    # Middleware
-    MIDDLEWARE_BASE_URL=str,
+    # Redis
+    REDIS_HOST=str,
+    REDIS_PORT=int,
 )
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(BASE_DIR / ".env")
