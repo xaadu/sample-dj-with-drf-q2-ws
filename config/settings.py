@@ -44,6 +44,7 @@ DEFAULT_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "django_q",
 ]
 LOCAL_APPS = [
     "core",
@@ -109,6 +110,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}/1",
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -163,4 +171,17 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+}
+
+# Django Q2
+Q_CLUSTER = {
+    "name": "default",
+    "label": "Django Q2",
+    "redis": {
+        "host": env("REDIS_HOST"),
+        "port": env("REDIS_PORT"),
+        "db": 2,
+    },
+    "timeout": 60,
+    "retry": 120,
 }
